@@ -1,5 +1,3 @@
-<?php
-
 [prefix]
 prefixResultChoiceSelection = '_rct_selected_'
 
