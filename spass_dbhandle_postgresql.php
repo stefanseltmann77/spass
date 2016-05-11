@@ -13,22 +13,22 @@ class SPAppDbHandlePostgreSQL extends SPAppDbHandle{
 
 
 
-	function __construct($host, $user, $passwd, $db, $port=5432){
-		$this->conn = pg_connect("host=$host dbname=$db port=$port user=$user password=$passwd");
+    function __construct($host, $user, $passwd, $db, $port=5432){
+        $this->conn = pg_connect("host=$host dbname=$db port=$port user=$user password=$passwd");
     }
 
-	function commitQuery($sqlText, $queryType, array &$params = Null){
-	    if ($this->echoSql){
+    function commitQuery($sqlText, $queryType, array &$params = Null){
+        if ($this->echoSql){
             echo "<br />".$sqlText;
         }
         if($this->usePreparedStatements==TRUE){
-        	$stmt = $this->conn->prepare($sqlText);
+            $stmt = $this->conn->prepare($sqlText);
             $ref = new ReflectionClass('mysqli_stmt');
-        	$method = $ref->getMethod("bind_param");
-        	$params2 = array();
-        	foreach($params as $k=>$v){
+            $method = $ref->getMethod("bind_param");
+            $params2 = array();
+            foreach($params as $k=>$v){
                 $params2[$k]=$v;
-        	}
+            }
             $method->invokeArgs($stmt,$params2);
             //call_user_func_array(array(&$stmt, 'bind_param'), &$params2);
             $stmt->execute();
@@ -40,7 +40,7 @@ class SPAppDbHandlePostgreSQL extends SPAppDbHandle{
                 $sqlResource = pg_query($this->conn, $sqlText);
             }
         }
-	    if($sqlResource){
+        if($sqlResource){
             //$warningCount = $this->conn->warning_count;
             if(self::QT_WORESULT === $queryType){//filtern auf insertTypen oder unklare YYY.
                 // XXXX TODO $tempResource = $this->conn->query("SELECT LAST_INSERT_ID() ");
@@ -92,20 +92,20 @@ class SPAppDbHandlePostgreSQL extends SPAppDbHandle{
                 }
 //                echo "<br /><br /><span style=\"color:red\">$sqlText<br />{$this->conn->errno}: {$this->conn->error}</span><br /><br />"; // YYY auf exception ändern
                 die();
-			}else{
+            }else{
 //                echo "<br /><br /><span style=\"color:red\">$sqlText<br />{$this->conn->errno}: {$this->conn->error}</span><br /><br />";
                 return FALSE;
-			}
+            }
             $this->conn->query("INSERT INTO mysql.query_logs (query, log, type,errno)VALUES ('".addslashes($sqlText)."', '".addslashes($this->conn->error)."', 'error', '".$this->conn->errno."') ");
         }
-	}
+    }
 
-	
-	function insertQuery($insertTable, $valueArray, $mode = self::C_ALLOW_DUPLICATES){trigger_error('not yet implemented');}
-	function updateQuery($updateTable, $valueArray, $filter){trigger_error('not yet implemented');}
-	function queryPrimaryKey($table){trigger_error('not yet implemented');}
-	function queryTableDescription ($table){trigger_error('not yet implemented');}
-	function queryTableFields ($table){trigger_error('not yet implemented');}
+
+    function insertQuery($insertTable, $valueArray, $mode = self::C_ALLOW_DUPLICATES){trigger_error('not yet implemented');}
+    function updateQuery($updateTable, $valueArray, $filter){trigger_error('not yet implemented');}
+    function queryPrimaryKey($table){trigger_error('not yet implemented');}
+    function queryTableDescription ($table){trigger_error('not yet implemented');}
+    function queryTableFields ($table){trigger_error('not yet implemented');}
 
 
     /**
@@ -116,18 +116,18 @@ class SPAppDbHandlePostgreSQL extends SPAppDbHandle{
      */
     function buildInsertQuery($insertTable, array $valueArray){trigger_error('not yet implemented');}
 
-	function tableExists($table, $schema = NULL){trigger_error('not yet implemented');}
-	
-	/**
-	 * Closes the currently open connection to the database.
-	 *
-	 * By default all pending transactions will not be committed.
-	 * @param boolean $commit_on_close
-	 */
+    function tableExists($table, $schema = NULL){trigger_error('not yet implemented');}
+
+    /**
+     * Closes the currently open connection to the database.
+     *
+     * By default all pending transactions will not be committed.
+     * @param boolean $commit_on_close
+     */
     function close($commit_on_close = False){
-    	if($commit_on_close === True){
-    		$this->query("COMMIT;");
-    	}
+        if($commit_on_close === True){
+            $this->query("COMMIT;");
+        }
         if($this->conn){
             //pg_close($this->conn); //not necessary according to manual
         }

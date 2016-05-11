@@ -15,7 +15,7 @@ abstract class SPAppDbHandle{
      * database connection
      * @var mixed
      */
-	protected $conn = null;
+    protected $conn = null;
 
     /**
      * @var bool
@@ -73,38 +73,38 @@ abstract class SPAppDbHandle{
      */
     function setErrorHandling($handling){
         if($handling ==="STRICT"){
-	        $this->errorHandling = self::ERRORS_STRICT;
-	    }elseif($handling ==="RELAY"){
-	        $this->errorHandling = self::ERRORS_RELAY;
-	    }elseif($handling ==="REPORT"){
-	        $this->errorHandling = self::ERRORS_REPORT;
-	    }elseif($handling ==="IGNORE"){
-	        $this->errorHandling = self::ERRORS_IGNORE;
-	    }else{
-	        trigger_error('Falscher Parameter $handling! Nur erlaubt: STRICT, RELAY, REPORT oder IGNORE', E_USER_ERROR); //YYY überarbeiten
-	    }
-	}
+            $this->errorHandling = self::ERRORS_STRICT;
+        }elseif($handling ==="RELAY"){
+            $this->errorHandling = self::ERRORS_RELAY;
+        }elseif($handling ==="REPORT"){
+            $this->errorHandling = self::ERRORS_REPORT;
+        }elseif($handling ==="IGNORE"){
+            $this->errorHandling = self::ERRORS_IGNORE;
+        }else{
+            trigger_error('Falscher Parameter $handling! Nur erlaubt: STRICT, RELAY, REPORT oder IGNORE', E_USER_ERROR); //YYY überarbeiten
+        }
+    }
 
     /**
      * @param bool $input
      */
-	function setEchoSql($input = true){
-		$this->echoSql = $input;
-	}
+    function setEchoSql($input = true){
+        $this->echoSql = $input;
+    }
 
     /**
      * @param $input
      */
-	function setEchoError($input = true){
-		$this->echoError = $input;
-	}
+    function setEchoError($input = true){
+        $this->echoError = $input;
+    }
 
     /**
      * @return mixed
      */
-	function getLastInsertID(){
+    function getLastInsertID(){
         return $this->lastInsertId;
-	}
+    }
 
     /**
      * @param string $sqlText
@@ -112,7 +112,7 @@ abstract class SPAppDbHandle{
      * @param array $params
      * @return mixed TODO festlegen XXX
      */
-	abstract function commitQuery($sqlText, $queryType, array &$params=null);
+    abstract function commitQuery($sqlText, $queryType, array &$params=null);
 
     /**
      * Query for result with multiple rows and multiple columns
@@ -120,9 +120,9 @@ abstract class SPAppDbHandle{
      * @param array $params
      * @return array
      */
-	function queryResult($sqlText, array $params=null) {
-		return $this->commitQuery($sqlText, self::QT_MULTIROW, $params);
-	}
+    function queryResult($sqlText, array $params=null) {
+        return $this->commitQuery($sqlText, self::QT_MULTIROW, $params);
+    }
 
     /**
      * Query for result with only one row and multiple columns
@@ -130,9 +130,9 @@ abstract class SPAppDbHandle{
      * @param array $params
      * @return array
      */
-	function queryRow($sqlText, array $params=null) {
-		return $this->commitQuery($sqlText, self::QT_SINGLEROW, $params);
-	}
+    function queryRow($sqlText, array $params=null) {
+        return $this->commitQuery($sqlText, self::QT_SINGLEROW, $params);
+    }
 
     /**
      * Query for result with only a single value to be returned, e.g. counts
@@ -140,9 +140,9 @@ abstract class SPAppDbHandle{
      * @param array $params
      * @return mixed
      */
-	function queryValue($sqlText, array $params=null) {
-		return $this->commitQuery($sqlText, self::QT_SINGLEVALUE, $params);
-	}
+    function queryValue($sqlText, array $params=null) {
+        return $this->commitQuery($sqlText, self::QT_SINGLEVALUE, $params);
+    }
 
     /**
      * Query that returns result from a single column as an array of these values.
@@ -153,7 +153,7 @@ abstract class SPAppDbHandle{
      * TODO: wirft keinen Fehler, wenn zu viele Spalten übergeben werden.
      */
     function queryList($sqlText, array $params=null){
-    	return $this->commitQuery($sqlText, self::QT_MULTIROW1COL, $params);
+        return $this->commitQuery($sqlText, self::QT_MULTIROW1COL, $params);
     }
 
     /**
@@ -163,7 +163,7 @@ abstract class SPAppDbHandle{
      * @return mixed
      */
     function queryMapping($sqlText, array $params=null){
-    	return $this->commitQuery($sqlText, self::QT_MULTIROW2COL, $params);
+        return $this->commitQuery($sqlText, self::QT_MULTIROW2COL, $params);
     }
 
     /**
@@ -171,25 +171,25 @@ abstract class SPAppDbHandle{
      * @param null $schema
      * @return bool
      */
-	abstract function tableExists($table, $schema = null);
+    abstract function tableExists($table, $schema = null);
 
     /**
      * Query anything regardless of return values, e.g. updates
      * @param string $sqlText
      * @param array $params
      */
-	function query($sqlText, array $params=null) {
-		$this->commitQuery($sqlText, self::QT_WORESULT, $params);
-	}
+    function query($sqlText, array $params=null) {
+        $this->commitQuery($sqlText, self::QT_WORESULT, $params);
+    }
 
-	/**
-	 * Lists the column names for a given table in form of a array
-	 *
-	 * @param string $table
+    /**
+     * Lists the column names for a given table in form of a array
+     *
+     * @param string $table
      * @deprecated
-	 * @return array
-	 */
-	abstract function queryTableFields($table);
+     * @return array
+     */
+    abstract function queryTableFields($table);
 
     /**
      * List the table names of a given schema
@@ -210,13 +210,13 @@ abstract class SPAppDbHandle{
      */
     abstract function queryTableColumnNames($table, $schema=null);
 
-	/**
-	 * Returns the string for a insert query based on a value array and a target table
-	 *
-	 * @param string $insertTable
-	 * @param array  $valueArray  	An associative array with keys as column names and values as column contents
-	 */
-	abstract function buildInsertQuery($insertTable, array $valueArray);
+    /**
+     * Returns the string for a insert query based on a value array and a target table
+     *
+     * @param string $insertTable
+     * @param array  $valueArray  	An associative array with keys as column names and values as column contents
+     */
+    abstract function buildInsertQuery($insertTable, array $valueArray);
 
     /**
      * Inserts the valueArray into a given insertTable using the array keys as field names.

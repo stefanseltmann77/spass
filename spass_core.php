@@ -394,9 +394,9 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlHeader
      */
     function HEADER($input = ''){
-    	$this->add($p = new HtmlHeader());
-    	$p->add($input);
-    	return $p;
+        $this->add($p = new HtmlHeader());
+        $p->add($input);
+        return $p;
     }
 
     /**
@@ -458,7 +458,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlTable
      */
     function TABLE(){
-    	return $this->add(new HtmlTable());
+        return $this->add(new HtmlTable());
     }
 
     /**
@@ -467,7 +467,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlHidden
      */
     function HIDDEN($varName, $varInput=null){
-    	return $this->add(new HtmlHidden($varName, $varInput));
+        return $this->add(new HtmlHidden($varName, $varInput));
     }
 
     /**
@@ -476,7 +476,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlSubmit
      */
     function SUBMIT($varName, $value='SUBMIT'){
-    	return $this->add(new HtmlSubmit($varName, $value));
+        return $this->add(new HtmlSubmit($varName, $value));
     }
 
     /**
@@ -485,7 +485,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlButton
      */
     function BUTTON($varName, $value='BUTTON'){
-    	return $this->add(new HtmlButton($varName, $value));
+        return $this->add(new HtmlButton($varName, $value));
     }
 
     /**
@@ -495,7 +495,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlTextinput
      */
     function TEXT($varName, $varInput=null, $label=''){
-    	return $this->add(new HtmlTextinput($varName, $varInput, $label));
+        return $this->add(new HtmlTextinput($varName, $varInput, $label));
     }
 
     /**
@@ -503,10 +503,10 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlAnchor
      */
     function ANCHOR($id){
-    	$this->add($anchor = new HtmlAnchor());
-    	$anchor->setID($id);
-    	$anchor->addTagContent(["name"=>$id]);
-    	return $anchor;
+        $this->add($anchor = new HtmlAnchor());
+        $anchor->setID($id);
+        $anchor->addTagContent(["name"=>$id]);
+        return $anchor;
     }
 
     /**
@@ -592,15 +592,15 @@ abstract class HtmlContainer extends ArrayObject{
                 }
                 $content->indent = str_repeat("\t", $content->indents);
                 $htmlString .= $content->render();
-    		} else {
+            } else {
                 if ($this instanceof HtmlCell or $this instanceof HtmlHeadline or $this instanceof  HtmlScript or $this instanceof  HtmlP or $this instanceof HtmlSpan){
                     $htmlString .= $content;
-    			} else {
+                } else {
                     $htmlString .= str_repeat("\t", $this->indents).$content;
                 }
-    		}
-    	}
-    	return $htmlString;
+            }
+        }
+        return $htmlString;
     }
 
     /**
@@ -609,9 +609,9 @@ abstract class HtmlContainer extends ArrayObject{
      * @deprecated
      */
     function resultTable($input){
-    	$table = $this->TABLE();
-    	$table->addResultSet($input);
-    	return $table;
+        $table = $this->TABLE();
+        $table->addResultSet($input);
+        return $table;
     }
 
     /**
@@ -623,7 +623,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return HtmlTable
      */
     function resultList(array $listContents, array $listMapping = null, $showAll = False){
-    	return $this->add(new SPA_ResultList($listContents, $listMapping, $showAll));
+        return $this->add(new SPA_ResultList($listContents, $listMapping, $showAll));
     }
 
     /**
@@ -634,7 +634,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @return SPA_ResultChoice
      */
     function resultChoice(array $listContents, array $rowIdentifier, array $selectedRow = [], $listMapping = []){
-    	return $this->add(new SPA_ResultChoice($listContents, $rowIdentifier, $selectedRow, $listMapping));
+        return $this->add(new SPA_ResultChoice($listContents, $rowIdentifier, $selectedRow, $listMapping));
     }
 
     /**
@@ -706,7 +706,7 @@ class HtmlBody extends HtmlContainer  {
 class HtmlHead extends HtmlContainer  {
 
     public $meta;
-	public $htmlTitle;
+    public $htmlTitle;
 
     /**
      * @param array $name
@@ -804,7 +804,7 @@ class HtmlSite {
      * @return $this
      */
     function addMeta(array $name){
-    	$this->HEAD->addMeta($name);
+        $this->HEAD->addMeta($name);
         return $this;
     }
 
@@ -814,7 +814,7 @@ class HtmlSite {
     function render(){
         return
         "</?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<!DOCTYPE html>\n".
-    	"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"de\" lang=\"de\">\n".$this->HEAD->render().$this->BODY->render()."</html>\n";
+        "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"de\" lang=\"de\">\n".$this->HEAD->render().$this->BODY->render()."</html>\n";
     }
 }
 
@@ -1068,7 +1068,7 @@ class HtmlLink extends HtmlContainer {
      * @return $this
      */
     function BR($count = 1){
-    	$this->parentContainer->BR($count);
+        $this->parentContainer->BR($count);
         return $this;
     }
 
@@ -1089,9 +1089,9 @@ class HtmlAnchor extends HtmlContainer {
     /**
      * @return string
      */
-	function render(){
+    function render(){
         return "<a{$this->tagContent}/>";
-	}
+    }
 }
 
 /**
@@ -1128,7 +1128,7 @@ class HtmlTable extends HtmlContainer {
     /**
      * @return string
      */
-	function render(){
+    function render(){
         foreach ($this->content as $key=>$value){
             if($value instanceof HtmlRow and isset($this->columnStyles)){ 
                 $this->content[$key]->columnStyles = $this->columnStyles;
@@ -1181,7 +1181,7 @@ class HtmlTable extends HtmlContainer {
     /**
      * @param $resultSet
      */
-	function addResultSet($resultSet){
+    function addResultSet($resultSet){
         if ($resultSet){
             $row = $this->TR();
             $keys = array_keys($resultSet[0]);
@@ -1299,8 +1299,8 @@ class HtmlCell extends HtmlContainer {
      * @return HtmlCell
      */
     function setColspan($width){
-		$this->addTagContent(['colspan'=>$width]);
-		return $this;
+        $this->addTagContent(['colspan'=>$width]);
+        return $this;
     }
 
     /**
@@ -1448,8 +1448,8 @@ abstract class HtmlInput{
      * @return HtmlInput
      */
     function setAutoFocus(){
-    	$this->tagContentArray["autofocus"]="autofocus";
-    	return $this;
+        $this->tagContentArray["autofocus"]="autofocus";
+        return $this;
     }
 
     /**
@@ -1584,7 +1584,7 @@ class HtmlCheckbox extends HtmlInput {
     function __construct($varName, $varInput=false, $label='', $value='1'){ //XXXreihenfolge?
         parent::__construct($varName,$varInput);
         if(!$value){
-			trigger_error("Assigned value for checkbox $varName cannot be 0 or Null or missing!");
+            trigger_error("Assigned value for checkbox $varName cannot be 0 or Null or missing!");
         }
         $this->varInput = $varInput;
         $this->label = $label;
@@ -1617,16 +1617,16 @@ class HtmlCheckbox extends HtmlInput {
         $htmlText =  "\t\t<input{$this->tagContent}/>\n";
         $htmlText .= "\t\t\t<label for=\"{$this->varName}\"{$this->labelClass}>{$this->label}</label>\n";
         return $htmlText;
-	}
+    }
 
     /**
      * @param $labelClass
      * @return $this
      */
-	function setLabelClass($labelClass){
+    function setLabelClass($labelClass){
         $this->labelClass = " class=\"$labelClass\"";
         return $this;
-	}
+    }
 }
 
 /**
@@ -1662,10 +1662,10 @@ class HtmlButton extends HtmlInput {
      * @param string $varName
      * @param string $value
      */
-	function __construct($varName='', $value='Button'){
+    function __construct($varName='', $value='Button'){
         parent::__construct($varName, $value);
         $this->tagContentArray = ['type'=>'button', 'name'=>$varName, 'value'=>$value];
-	}
+    }
 
     /**
      * @return string
@@ -1698,7 +1698,7 @@ class HtmlTextarea extends HtmlInput {
     /**
      * @var int
      */
-	protected $cols=80;
+    protected $cols=80;
 
     /**
      * @var int
@@ -1785,8 +1785,8 @@ class HtmlTextinput extends HtmlInput {
         if ($this->label!=''){
             $htmlText .= $this->indent."\t<label for=\"{$this->varName}\">{$this->label}</label>\n";
         }
-		return $htmlText;
-	}
+        return $htmlText;
+    }
 
     /**
      * @param int $size
@@ -1831,7 +1831,7 @@ class HtmlPassword extends HtmlTextinput {
             $htmlText .= $this->indent."\t<label for=\"{$this->varName}\">{$this->label}</label>\n";
         }
         return $htmlText;
-	}
+    }
 }
 
 /**
@@ -1894,7 +1894,7 @@ class HtmlDropdown extends HtmlInput {
      * Enables the automatic submit after a change in values
      * @return HtmlDropdown
      */
-	function setAutoSubmit(){
+    function setAutoSubmit(){
         $this->autoSubmit = True;
         $this->tagContentArray["onchange"]="submit()";
         return $this;
@@ -1959,11 +1959,11 @@ class HtmlDropdown extends HtmlInput {
         $codes = $this->codeSource;
         if ($this->varInput == "") {$this->varInput = $this->missingCode;} //XXX ID mit varname ersetzen.
         $dropdownString = "\n".$this->indent."<select".$this->tagContent.">\n";
-		if (!$this->noMissing){
-			$dropdownString .= $this->indent."\t<option value=\"{$this->missingCode}\">".self::$noEntryLabel."</option>\n";
-		}
-		$codeString ='';
-		if($codes){
+        if (!$this->noMissing){
+            $dropdownString .= $this->indent."\t<option value=\"{$this->missingCode}\">".self::$noEntryLabel."</option>\n";
+        }
+        $codeString ='';
+        if($codes){
             if($this->simpleCodeSource){
                 $codes=array_combine($codes, $codes);
             }
@@ -1986,31 +1986,31 @@ class HtmlDropdown extends HtmlInput {
                         $codeString .=  ">".$label."</option>\n";
                     }
                 }else{
-                	$codesValues = array_values($codes);
-                	if(count($codes)>1 and  is_array($codesValues[1])){
-                		foreach($codes as $optgrp => $subCode) {
-                			if(is_array($subCode)){
-	                			$codeString .=  $this->indent."\t<optgroup  label=\"".$optgrp.'"/>';
-	                			foreach($subCode as $code => $label) {
-	                				$codeString .=  $this->indent."\t<option value=\"".$code.'"';
-	                				if ($code == $this->varInput) {$codeString .= " selected=\"selected\"";}
-	                				$codeString .=  ">".$label."</option>\n";
-	                			}
-                			}else{
-                				$codeString .=  $this->indent."\t<option value=\"".$optgrp.'"';
-                				if ($optgrp == $this->varInput) {$codeString .= " selected=\"selected\"";}
-                				$codeString .=  ">".$subCode."</option>\n";
-                			}
-                			$codeString .=  "</optgroup>\n";
-                		}
-                	}else{
-                		foreach($codes as $code => $label) {
-                			$codeString .=  $this->indent."\t<option value=\"".$code.'"';
-                			if ($code == $this->varInput) {$codeString .= " selected=\"selected\"";}
-                			$codeString .=  ">".$label."</option>\n";
-                		}
-                	}
-                	unset($codesValues);
+                    $codesValues = array_values($codes);
+                    if(count($codes)>1 and  is_array($codesValues[1])){
+                        foreach($codes as $optgrp => $subCode) {
+                            if(is_array($subCode)){
+                                $codeString .=  $this->indent."\t<optgroup  label=\"".$optgrp.'"/>';
+                                foreach($subCode as $code => $label) {
+                                    $codeString .=  $this->indent."\t<option value=\"".$code.'"';
+                                    if ($code == $this->varInput) {$codeString .= " selected=\"selected\"";}
+                                    $codeString .=  ">".$label."</option>\n";
+                                }
+                            }else{
+                                $codeString .=  $this->indent."\t<option value=\"".$optgrp.'"';
+                                if ($optgrp == $this->varInput) {$codeString .= " selected=\"selected\"";}
+                                $codeString .=  ">".$subCode."</option>\n";
+                            }
+                            $codeString .=  "</optgroup>\n";
+                        }
+                    }else{
+                        foreach($codes as $code => $label) {
+                            $codeString .=  $this->indent."\t<option value=\"".$code.'"';
+                            if ($code == $this->varInput) {$codeString .= " selected=\"selected\"";}
+                            $codeString .=  ">".$label."</option>\n";
+                        }
+                    }
+                    unset($codesValues);
                 }
             }
         }
@@ -2021,33 +2021,33 @@ class HtmlDropdown extends HtmlInput {
 
 
 function getDatelist($days, $start = 0, $options = 'noWeekend'){ /// xxxx hier muessen noch andere STartwerte nachgearbeitet werden.
-	$dates = [];
-	$i = $start;
-	if ($days > 0){
-		while ($i <$days){
-			$date = mktime(0,0,0,date('m'), date('d')+$i, date('y'));
-			if (($options == 'noWeekend' and date('w', $date) != 0 AND date('w', $date) != 6) OR $options != 'noWeekend'){ //bedingtes Filtern auf Wochentage
-				$entryDate = date('Y-m-d', $date);
-				$displayDate = date('d.m.Y   K\WW D', $date);
-				$dates[$entryDate] = $displayDate;
-			}
-			$i++;
+    $dates = [];
+    $i = $start;
+    if ($days > 0){
+        while ($i <$days){
+            $date = mktime(0,0,0,date('m'), date('d')+$i, date('y'));
+            if (($options == 'noWeekend' and date('w', $date) != 0 AND date('w', $date) != 6) OR $options != 'noWeekend'){ //bedingtes Filtern auf Wochentage
+                $entryDate = date('Y-m-d', $date);
+                $displayDate = date('d.m.Y   K\WW D', $date);
+                $dates[$entryDate] = $displayDate;
+            }
+            $i++;
 
-		}
-	} elseif ($days < 0){
-		while ($days+$i <0){
-			$entryDate = date('Y-m-d', mktime(0,0,0,date('m'), date('d')-$i, date('y')));
-			$displayDate = date('d.m.Y', mktime(0,0,0,date('m'), date('d')-$i, date('y')));
-			$dates[$entryDate]=$displayDate ;
-			$i++;
-		}
-	}
-	return $dates;
+        }
+    } elseif ($days < 0){
+        while ($days+$i <0){
+            $entryDate = date('Y-m-d', mktime(0,0,0,date('m'), date('d')-$i, date('y')));
+            $displayDate = date('d.m.Y', mktime(0,0,0,date('m'), date('d')-$i, date('y')));
+            $dates[$entryDate]=$displayDate ;
+            $i++;
+        }
+    }
+    return $dates;
 }
 
 class SPA_DataObject extends ArrayObject{
 
-	protected $readOnly = False; //TODO not used
+    protected $readOnly = False; //TODO not used
     protected $dataCache = [];
 
     /**
@@ -2089,11 +2089,11 @@ class SPAppDataCache extends SPA_DataObject{
      * @param mixed $value
      */
     public function offsetSet($offset, $value) {
-    	if(true === $this->readOnly){
-    		trigger_error("In SPASS, the REQUEST-object is considered as read-only! <br />KEY '$offset' and VALUE '$value' could not be set!", E_USER_ERROR);
-    	}else{
+        if(true === $this->readOnly){
+            trigger_error("In SPASS, the REQUEST-object is considered as read-only! <br />KEY '$offset' and VALUE '$value' could not be set!", E_USER_ERROR);
+        }else{
             $this->dataCache[$offset] = $value;
-    	}
+        }
     }
 
     /**
@@ -2101,7 +2101,7 @@ class SPAppDataCache extends SPA_DataObject{
      * @return bool
      */
     public function offsetExists($offset) {
-    	return isset($this->dataCache[$offset]);
+        return isset($this->dataCache[$offset]);
     }
 
     /**
@@ -2109,18 +2109,18 @@ class SPAppDataCache extends SPA_DataObject{
      * @return bool
      */
     public function offsetGet($offset) {
-    	return isset($this->dataCache[$offset]) ? $this->dataCache[$offset] : false;
+        return isset($this->dataCache[$offset]) ? $this->dataCache[$offset] : false;
     }
 
     /**
      * @param mixed $offset
      */
     public function offsetUnset($offset) {
-    	if(true === $this->readOnly){
-    		trigger_error("In SPA, the REQUEST-object is considered as read-only! <br />KEY '$offset' could not be unset!", E_USER_ERROR);
-    	}else{
-    		unset($this->dataCache[$offset]);
-    	}
+        if(true === $this->readOnly){
+            trigger_error("In SPA, the REQUEST-object is considered as read-only! <br />KEY '$offset' could not be unset!", E_USER_ERROR);
+        }else{
+            unset($this->dataCache[$offset]);
+        }
     }
 
     /**
@@ -2219,7 +2219,7 @@ class SPA_Request extends SPA_DataObject {
     protected $mode;
     protected $getMode = 'strict';
     protected $readOnly = true;
-	private $inertCache = [];
+    private $inertCache = [];
 
     /**
      * SPA_Request constructor.
@@ -2258,7 +2258,7 @@ class SPA_Request extends SPA_DataObject {
      */
     function get($varName, $missingValue = false){
         return (isset($this->request[$varName]) and !($this->request[$varName] === $missingValue)) ? $this->request[$varName] : false;
-	}
+    }
 
     /**
      * @param string $varName
@@ -2288,7 +2288,7 @@ class SPA_Request extends SPA_DataObject {
      */
     function getArray(){
         $valueArray = [];
-	    if (func_num_args() == 1){
+        if (func_num_args() == 1){
             $keys = func_get_arg(0);
         }else{
             $keys = func_get_args();
@@ -2361,37 +2361,37 @@ class SPApp {
      */
     public $appName;
 
-	/**
-	 *
-	 * Database handle for sql-queries
-	 * @var SPAppDbHandle
-	 */
+    /**
+     *
+     * Database handle for sql-queries
+     * @var SPAppDbHandle
+     */
     public $db;
 
-	/**
-	 *
-	 * Root element for all html-elements
-	 * @var HtmlSite
-	 */
+    /**
+     *
+     * Root element for all html-elements
+     * @var HtmlSite
+     */
     public $ROOT;
 
     /**
      * Enables possibility for login validation
      * @var bool
      */
-	protected $enableLogin = false;
+    protected $enableLogin = false;
 
-	/**
-	 *
-	 * proxy for userinfo.
-	 * @var array
-	 */
-	protected $user = false;
+    /**
+     *
+     * proxy for userinfo.
+     * @var array
+     */
+    protected $user = false;
 
     protected $userList = [];
 
-	const BUTTON_LOGIN  = "button_SPAAppLogin";
-	const BUTTON_LOGOUT = "button_SPAAppLogout";
+    const BUTTON_LOGIN  = "button_SPAAppLogin";
+    const BUTTON_LOGOUT = "button_SPAAppLogout";
 
     /**
      * @param string $appName
@@ -2410,7 +2410,7 @@ class SPApp {
             $this->appid = uniqid();
         }
         HtmlDropdown::setNoEntryLabel("Keine Angabe");
-	}
+    }
 
     /**
      * Setter for App title
@@ -2441,34 +2441,34 @@ class SPApp {
      * @deprecated
      */
     function commitLogout(){
-		//please overwrite similar to abstract method.
+        //please overwrite similar to abstract method.
     }
 
-	function setDebugger(){
-	}
+    function setDebugger(){
+    }
 
     /**
      * Generic form to query credentials for the SPApp
      */
-	function displayLoginForm(){
-		$div = $this->ROOT->BODY->DIV()->setID('LoginBox');
-		$form = $div->FORM('form_login')->addTagContent(["autocomplete"=>"off"]);
-		$form->H1("Login")->setClass('pageTitle');
-		$table = $form->TABLE();
-		$TR = $table->TR();
-		$TR->TD()->LABEL()->setFor("user")->add("User");
-		$TR->TD()->TEXT('user')->setID('user');
-		$TR->TD()->LABEL("Kennwort")->setFor("password");
-		$TR->TD()->PASSWORD('password')->setID('password');
-		$TR->TD()->SUBMIT(self::BUTTON_LOGIN, 'login');
-	}
+    function displayLoginForm(){
+        $div = $this->ROOT->BODY->DIV()->setID('LoginBox');
+        $form = $div->FORM('form_login')->addTagContent(["autocomplete"=>"off"]);
+        $form->H1("Login")->setClass('pageTitle');
+        $table = $form->TABLE();
+        $TR = $table->TR();
+        $TR->TD()->LABEL()->setFor("user")->add("User");
+        $TR->TD()->TEXT('user')->setID('user');
+        $TR->TD()->LABEL("Kennwort")->setFor("password");
+        $TR->TD()->PASSWORD('password')->setID('password');
+        $TR->TD()->SUBMIT(self::BUTTON_LOGIN, 'login');
+    }
 
     /**
      * @param bool|true $input
      */
-	function enableLogin($input = true){
-		$this->enableLogin = $input;
-	}
+    function enableLogin($input = true){
+        $this->enableLogin = $input;
+    }
 
     /**
      * Primitive Handling of simple login
@@ -2542,12 +2542,12 @@ class SPApp {
  */
 class SPA_ResultList extends HtmlContainer {
 
-	/**
-	 *
-	 * resultsset or tablecontent, which is to be displayed
-	 * @var ArrayObject
-	 */
-	protected $listContents = null;
+    /**
+     *
+     * resultsset or tablecontent, which is to be displayed
+     * @var ArrayObject
+     */
+    protected $listContents = null;
 
     /**
      * @var ArrayObject
@@ -2555,11 +2555,11 @@ class SPA_ResultList extends HtmlContainer {
     protected $listMapping = null;
 
     /**
-	 *
-	 * HtmlTable object.
-	 * @var HtmlTable
-	 */
-	protected $listTable;
+     *
+     * HtmlTable object.
+     * @var HtmlTable
+     */
+    protected $listTable;
 
     /**
      * @var bool if true, all columns will be shown regardless whether included in listMapping or not
@@ -2574,18 +2574,18 @@ class SPA_ResultList extends HtmlContainer {
      * @param bool $showAll if true, all columns will be showed regardless whether included in listMapping or not
      */
     function __construct(array &$listContents = null, array &$listMapping = null, $showAll = false){
-		parent::__construct();
-		$this->listContents = &$listContents;
+        parent::__construct();
+        $this->listContents = &$listContents;
         $this->listMapping = &$listMapping;
-		$table = $this->TABLE();
-		$this->listTable = &$table;
+        $table = $this->TABLE();
+        $this->listTable = &$table;
         $this->showAll = $showAll;
-	}
+    }
 
     /**
      * @return string
      */
-	function render(){
+    function render(){
         $resultSet = $this->listContents;
         if ($resultSet){
             $row = $this->listTable->TR();
@@ -2631,8 +2631,8 @@ class SPA_ResultList extends HtmlContainer {
         } else {
             $this->add("No results available!");
         }
-		return parent::render();
-	}
+        return parent::render();
+    }
 
 
     /**
