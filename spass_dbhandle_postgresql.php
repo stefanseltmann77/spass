@@ -11,8 +11,10 @@ use spass\database\SPAppDbHandle;
  */
 class SPAppDbHandlePostgreSQL extends SPAppDbHandle{
 
-	function __construct($host, $user, $passwd, $db){
-		$this->conn = pg_connect("host=lnxp-6983.srv.mediaways.net dbname=maxdome port=5432 user=sseltmann password=poDJM69LDJE4");
+
+
+	function __construct($host, $user, $passwd, $db, $port=5432){
+		$this->conn = pg_connect("host=$host dbname=$db port=$port user=$user password=$passwd");
     }
 
 	function commitQuery($sqlText, $queryType, array &$params = Null){

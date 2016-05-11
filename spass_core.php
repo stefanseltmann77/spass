@@ -633,7 +633,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @param array $listMapping
      * @return SPA_ResultChoice
      */
-    function resultChoice(array &$listContents, array $rowIdentifier, array $selectedRow = [], $listMapping = []){
+    function resultChoice(array $listContents, array $rowIdentifier, array $selectedRow = [], $listMapping = []){
     	return $this->add(new SPA_ResultChoice($listContents, $rowIdentifier, $selectedRow, $listMapping));
     }
 
@@ -644,7 +644,7 @@ abstract class HtmlContainer extends ArrayObject{
      * @param array $listMapping
      * @return SPA_ResultMultiChoice
      */
-    function resultMultiChoice(array &$listContents, $rowIdentifier, array $selectedRows = [], array $listMapping = []){
+    function resultMultiChoice(array $listContents, $rowIdentifier, array $selectedRows = [], array $listMapping = []){
         return $this->add(new SPA_ResultMultiChoice($listContents, $rowIdentifier, $selectedRows, $listMapping));
     }
 
@@ -1223,14 +1223,14 @@ class HtmlRow extends HtmlContainer {
      * @return $this
      */
     function fillRow(){
-    	$cells = func_get_args();
-    	if(is_array($cells[0])){
-    		$cells = $cells[0];
-    	}
-    	foreach($cells as $content){
-    		$this->TD($content);
-    	}
-    	return $this;
+        $cells = func_get_args();
+        if(is_array($cells[0])){
+            $cells = $cells[0];
+        }
+        foreach($cells as $content){
+            $this->TD($content);
+        }
+        return $this;
     }
 
     /**
